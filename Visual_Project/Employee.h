@@ -17,10 +17,10 @@ enum class CertiLevel
 
 struct Employee
 {
-	unsigned int employeeNum;
+	std::string employeeNum;
 	std::string name;
 	CareerLevel cl;
 	std::string phoneNum;
-	int birthday;
+	std::string birthday;
 	CertiLevel certi;
 };
