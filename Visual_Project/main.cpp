@@ -1,9 +1,9 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 using namespace std;
 
 int main()
 {
-	cout << "ÇÁ·ÎÁ§Æ® »ý¼º" << endl;
+	cout << "í”„ë¡œì íŠ¸ ìƒì„±" << endl;
 	return 0;
 }
