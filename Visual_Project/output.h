@@ -24,7 +24,7 @@ public:
 		}
 
 		for (auto str : vectorStr) {
-			fout << str;
+			fout << str << endl;
 		}
 		return true;
 	}
