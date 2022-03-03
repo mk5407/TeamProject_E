@@ -31,8 +31,8 @@ class Mod
 public:
 	Mod(string cmd);
 	void parsingCMD(string cmd);
-	vector<Employee> getModifyList(vector<Employee> employee_list);
-	void modifyEmployeeInfo(vector<Employee> modify_list);
+	vector<Employee*> getModifyList(vector<Employee>& employee_list);
+	void modifyEmployeeInfo(vector<Employee*> modify_list);
 
 private:
 	int option1_;

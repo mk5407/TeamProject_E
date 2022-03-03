@@ -47,10 +47,8 @@ void Mod::parsingCMD(string cmd)
 	
 }
 
-vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
+vector<Employee*> Mod::getModifyList(vector<Employee>& employee_list)
 {
-	vector <Employee> find_list;
-
 	// [TO DO] Refactoring 
 	CareerLevel find_cl;
 	vector<string> cl_type = { "CL1", "CL2", "CL3", "CL4" };
@@ -78,76 +76,96 @@ vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
 		certi_num++;
 	}
 
+	int vector_size = employee_list.size();
+
 	// [TO DO] Refactoring 
 	switch (find_.type_)
 	{
 	case Type::EmployeeNum:
-		for (Employee e : employee_list)
+
+		for (int i = 0; i< vector_size; i++)
 		{
-			if (e.employeeNum == find_.content_)
+			Employee* e = &employee_list[i];
+
+			if (e->employeeNum == find_.content_)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 
 		break;
 	case Type::Name:
-		for (Employee e : employee_list)
+		
+		for (int i = 0; i < vector_size; i++)
 		{
-			if (e.name == find_.content_)
+			Employee* e = &employee_list[i];
+
+			if (e->name == find_.content_)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 		break;
 
 	case Type::CL:
-		for (Employee e : employee_list)
+
+		for (int i = 0; i < vector_size; i++)
 		{
-			if (e.cl == find_cl)
+			Employee* e = &employee_list[i];
+
+			if (e->cl == find_cl)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 
 		break;
 
 	case Type::PhoneNum:
-		for (Employee e : employee_list)
+
+		for (int i = 0; i < vector_size; i++)
 		{
-			if (e.phoneNum == find_.content_)
+			Employee* e = &employee_list[i];
+
+			if (e->phoneNum == find_.content_)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 
 		break;
 	case Type::BirthDay:
-		for (Employee e : employee_list)
+
+		for (int i = 0; i < vector_size; i++)
 		{
-			if (e.birthday == find_.content_)
+			Employee* e = &employee_list[i];
+
+			if (e->birthday == find_.content_)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 
 		break;
 	case Type::Certi:
-		for (Employee e : employee_list)
+
+		for (int i = 0; i < vector_size; i++)
 		{
-			if (e.certi == find_certi)
+			Employee* e = &employee_list[i];
+
+			if (e->certi == find_certi)
 			{
-				find_list.push_back(e);
+				find_list_.push_back(e);
 			}
 		}
 
 		break;
 	}
 
-return find_list;
+	return find_list_;
 }
 
-void Mod::modifyEmployeeInfo(vector<Employee> modify_list)
+void Mod::modifyEmployeeInfo(vector<Employee*> modify_list)
 {
 	// [TO DO] Refactoring 
 	CareerLevel modify_cl;
@@ -177,27 +195,27 @@ void Mod::modifyEmployeeInfo(vector<Employee> modify_list)
 	}
 
 
-	for (Employee e : modify_list)
+	for (Employee* e : modify_list)
 	{
 		switch (modify_.type_)
 		{
 		case Type::EmployeeNum:
-			e.employeeNum = modify_.content_;
+			e->employeeNum = modify_.content_;
 			break;
 		case Type::Name:
-			e.name = modify_.content_;
+			e->name = modify_.content_;
 			break;
 		case Type::CL:
-			e.cl = modify_cl;
+			e->cl = modify_cl;
 			break;
 		case Type::PhoneNum:
-			e.phoneNum = modify_.content_;
+			e->phoneNum = modify_.content_;
 			break;
 		case Type::BirthDay:
-			e.birthday = modify_.content_;
+			e->birthday = modify_.content_;
 			break;
 		case Type::Certi:
-			e.certi = modify_certi;
+			e->certi = modify_certi;
 			break;
 		}
 	}
