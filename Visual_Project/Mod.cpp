@@ -24,8 +24,6 @@ void Mod::parsingCMD(string cmd)
 		str_list.push_back(str_buf);
 	}
 
-	cout << str_list[4] << endl;
-
 	int type = 0;
 
 	vector<string> mod_type = { "employeeNum", "name", "cl", "phoneNum", "birthday", "certi" };
@@ -47,15 +45,13 @@ void Mod::parsingCMD(string cmd)
 		type++;
 	}
 	
-
-
 }
 
 vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
 {
 	vector <Employee> find_list;
 
-	//TODO FUNC
+	// [TO DO] Refactoring 
 	CareerLevel find_cl;
 	vector<string> cl_type = { "CL1", "CL2", "CL3", "CL4" };
 	CertiLevel find_certi;
@@ -82,15 +78,13 @@ vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
 		certi_num++;
 	}
 
-
-
 	// [TO DO] Refactoring 
 	switch (find_.type_)
 	{
 	case Type::EmployeeNum:
 		for (Employee e : employee_list)
 		{
-			if (e.employeeNum == std::stoi(find_.content_))
+			if (e.employeeNum == find_.content_)
 			{
 				find_list.push_back(e);
 			}
@@ -131,7 +125,7 @@ vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
 	case Type::BirthDay:
 		for (Employee e : employee_list)
 		{
-			if (e.birthday == std::stoi(find_.content_))
+			if (e.birthday == find_.content_)
 			{
 				find_list.push_back(e);
 			}
@@ -153,3 +147,59 @@ vector<Employee> Mod::getModifyList(vector<Employee> employee_list)
 return find_list;
 }
 
+void Mod::modifyEmployeeInfo(vector<Employee> modify_list)
+{
+	// [TO DO] Refactoring 
+	CareerLevel modify_cl;
+	vector<string> cl_type = { "CL1", "CL2", "CL3", "CL4" };
+	CertiLevel modify_certi;
+	vector<string> certi_type = { "ADV", "PRO", "EX" };
+
+	int cl_num = 0;
+	int certi_num = 0;
+
+	for (string cl_str : cl_type)
+	{
+		if (cl_str == modify_.content_)
+		{
+			modify_cl = static_cast<CareerLevel>(cl_num);
+		}
+		cl_num++;
+	}
+
+	for (string certi_str : certi_type)
+	{
+		if (certi_str == modify_.content_)
+		{
+			modify_certi = static_cast<CertiLevel>(certi_num);
+		}
+		certi_num++;
+	}
+
+
+	for (Employee e : modify_list)
+	{
+		switch (modify_.type_)
+		{
+		case Type::EmployeeNum:
+			e.employeeNum = modify_.content_;
+			break;
+		case Type::Name:
+			e.name = modify_.content_;
+			break;
+		case Type::CL:
+			e.cl = modify_cl;
+			break;
+		case Type::PhoneNum:
+			e.phoneNum = modify_.content_;
+			break;
+		case Type::BirthDay:
+			e.birthday = modify_.content_;
+			break;
+		case Type::Certi:
+			e.certi = modify_certi;
+			break;
+		}
+	}
+
+}
