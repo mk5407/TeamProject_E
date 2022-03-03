@@ -10,13 +10,13 @@ using namespace std;
 class Del
 {
 public:
-	bool compareEmployee(struct Employee s1, struct Employee s2) {
-		return (s1.employeeNum == s2.employeeNum) &&
-			(s1.name == s2.name) &&
-			(s1.cl == s2.cl) &&
-			(s1.phoneNum == s2.phoneNum) &&
-			(s1.birthday == s2.birthday) &&
-			(s1.certi == s2.certi);
+	bool compareEmployee(Employee s1, Employee s2) {
+		return (s1.getEmployeeNum() == s2.getEmployeeNum()) &&
+			(s1.getName() == s2.getName()) &&
+			(s1.getCL() == s2.getCL()) &&
+			(s1.getPhoneNum() == s2.getPhoneNum()) &&
+			(s1.getBirthday() == s2.getBirthday()) &&
+			(s1.getCerti() == s2.getCerti());
 	}
 
 	int del(std::vector<Employee>& list, std::vector<Employee> foundList) {

@@ -95,14 +95,14 @@ struct cmd_arg* parseInputString(string input) {
 	return arg;
 }
 
-void printEmployee(struct Employee employee) {
+void printEmployee(Employee employee) {
 	cout << "[Debug] ";
-	cout << "employeeNum: " << employee.employeeNum << " ";
-	cout << "name: " << employee.name << " \t";
-	cout << "cl: " << (int)employee.cl << " ";
-	cout << "phoneNum: " << employee.phoneNum << " ";
-	cout << "birthday: " << employee.birthday << " ";
-	cout << "certi: " << (int)employee.certi << endl;
+	cout << "employeeNum: " << employee.getEmployeeNum() << " ";
+	cout << "name: " << employee.getName() << " \t";
+	cout << "cl: " << employee.getCL() << " ";
+	cout << "phoneNum: " << employee.getPhoneNum() << " ";
+	cout << "birthday: " << employee.getBirthday() << " ";
+	cout << "certi: " << employee.getCerti() << endl;
 }
 
 class Sch
@@ -116,18 +116,18 @@ public:
 		switch (op->columm) {
 		case (ColummType::CLM_EMPLOYEE_NUM):
 			for (auto item : list) {
-				if (item.employeeNum == op->value) result.push_back(item);
+				if (item.getEmployeeNum() == op->value) result.push_back(item);
 			}
 			break;
 		case (ColummType::CLM_NAME):
 			for (auto item : list) {
-				stringstream ss(item.name);
+				stringstream ss(item.getName());
 				string firstName, lastName;
 				getline(ss, firstName, ' ');
 				getline(ss, lastName, ' ');
 
 				string tmp;
-				if (op->op2 == OPOption2::OP2_NONE) tmp = item.name;
+				if (op->op2 == OPOption2::OP2_NONE) tmp = item.getName();
 				if (op->op2 == OPOption2::OP2_NAME_FIRSTNAME) tmp = firstName;
 				if (op->op2 == OPOption2::OP2_NAME_LASTNAME) tmp = lastName;
 
@@ -135,25 +135,20 @@ public:
 			}
 			break;
 		case (ColummType::CLM_CL):
-			CareerLevel cl;
-			if (op->value == "CL1") cl = CareerLevel::CL1;
-			if (op->value == "CL2") cl = CareerLevel::CL2;
-			if (op->value == "CL3") cl = CareerLevel::CL3;
-			if (op->value == "CL4") cl = CareerLevel::CL4;
 			for (auto item : list) {
-				if (item.cl == cl) result.push_back(item);
+				if (item.getCL() == op->value) result.push_back(item);
 			}
 			break;
 		case (ColummType::CLM_PHONE_NUM):
 			for (auto item : list) {
-				stringstream ss(item.phoneNum);
+				stringstream ss(item.getPhoneNum());
 				string middleNum, lastNum;
 				getline(ss, middleNum, '-');
 				getline(ss, middleNum, '-');
 				getline(ss, lastNum, '-');
 
 				string tmp;
-				if (op->op2 == OPOption2::OP2_NONE) tmp = item.phoneNum;
+				if (op->op2 == OPOption2::OP2_NONE) tmp = item.getPhoneNum();
 				if (op->op2 == OPOption2::OP2_PHONE_MIDDLE) tmp = middleNum;
 				if (op->op2 == OPOption2::OP2_PHONE_LAST) tmp = lastNum;
 
@@ -162,12 +157,12 @@ public:
 			break;
 		case (ColummType::CLM_BIRTYDAY):
 			for (auto item : list) {
-				string year = item.birthday.substr(0, 4);
-				string month = item.birthday.substr(4, 2);
-				string day = item.birthday.substr(6, 2);
+				string year = item.getBirthday().substr(0, 4);
+				string month = item.getBirthday().substr(4, 2);
+				string day = item.getBirthday().substr(6, 2);
 
 				string tmp;
-				if (op->op2 == OPOption2::OP2_NONE) tmp = item.birthday;
+				if (op->op2 == OPOption2::OP2_NONE) tmp = item.getBirthday();
 				if (op->op2 == OPOption2::OP2_BIRTH_YEAR) tmp = year;
 				if (op->op2 == OPOption2::OP2_BIRTH_MONTH) tmp = month;
 				if (op->op2 == OPOption2::OP2_BIRTH_DAY) tmp = day;
@@ -176,12 +171,8 @@ public:
 			}
 			break;
 		case (ColummType::CLM_CERTI):
-			CertiLevel certi;
-			if (op->value == "ADV") certi = CertiLevel::ADV;
-			if (op->value == "PRO") certi = CertiLevel::PRO;
-			if (op->value == "EX") certi = CertiLevel::EX;
 			for (auto item : list) {
-				if (item.certi == certi) result.push_back(item);
+				if (item.getCerti() == op->value) result.push_back(item);
 			}
 			break;
 		default:
