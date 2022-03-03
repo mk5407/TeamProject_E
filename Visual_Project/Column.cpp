@@ -7,6 +7,9 @@ using namespace std;
 #define OLDEST_EMP_NUM   (69000000)
 #define YOUNGEST_EMP_NUM (21999999) 
 
+#define MAX_LEN_NAME (15)
+#define EMPLOYEE_NUM_LENGTH (8)
+
 bool IsUpperCase(string str)
 {
 	for (int i = 0; i < str.length(); i++)
@@ -32,10 +35,10 @@ class ColumnName : public Column
 {
 	virtual bool IsValidColumn(Employee emp)
 	{
-		if (emp.name.length() > 15)
+		if (emp.getName().length() > MAX_LEN_NAME)
 			return false;
 
-		if (!IsUpperCase(emp.name))
+		if (!IsUpperCase(emp.getName()))
 			return false;
 		
 		return true;
@@ -46,12 +49,13 @@ class ColumnEmployeeNum : public Column
 {
 	virtual bool IsValidColumn(Employee emp)
 	{
-		if (emp.employeeNum.length() != 8)
+		string employeeNum = emp.getEmployeeNum();
+		if (employeeNum.length() != EMPLOYEE_NUM_LENGTH)
 			return false;
 
 		try 
 		{
-			if ((stoi(emp.employeeNum) < YOUNGEST_EMP_NUM) || (stoi(emp.employeeNum) > OLDEST_EMP_NUM))
+			if ((stoi(employeeNum) < YOUNGEST_EMP_NUM) || (stoi(employeeNum) > OLDEST_EMP_NUM))
 				return true;
 		}
 		catch (invalid_argument)
@@ -68,8 +72,9 @@ class ColumnPhoneNum : public Column
 {
 	virtual bool IsValidColumn(Employee emp)
 	{
-		unsigned int phoneNum = 0;
-		if (!(emp.phoneNum[0] == '0') || !(emp.phoneNum[1] == '1') || !(emp.phoneNum[2] == '0'))
+		unsigned int number = 0;
+		string fullPhoneNumber = emp.getPhoneNum();
+		if (!(fullPhoneNumber[0] == '0') || !(fullPhoneNumber[1] == '1') || !(fullPhoneNumber[2] == '0'))
 		{
 			return false;
 		}
@@ -78,12 +83,12 @@ class ColumnPhoneNum : public Column
 		{
 			if ((i == 3) || (i == 8))
 			{
-				if (emp.phoneNum[i] != '-')
+				if (fullPhoneNumber[i] != '-')
 					return false;
 				continue;
 			}
-			phoneNum = emp.phoneNum[i] - '0';
-			if (phoneNum > 9)
+			number = fullPhoneNumber[i] - '0';
+			if (number > 9)
 			{
 				return false;
 			}
@@ -100,14 +105,14 @@ class ColumnBirthday : public Column
 		unsigned int birthday = 0;
 		unsigned int month = 0;
 		unsigned int day = 0;
-		if (emp.birthday.length() != 8)
+		if (emp.getBirthday().length() != 8)
 			return false;
 
 		try
 		{
-			birthday = stoi(emp.birthday);
-			month = stoi(emp.birthday.substr(4,2));
-			day = stoi(emp.birthday.substr(6, 2));
+			birthday = stoi(emp.getBirthday());
+			month = stoi(emp.getBirthday().substr(4,2));
+			day = stoi(emp.getBirthday().substr(6, 2));
 
 			if ((month > 12) || (day > 31) || (month * day == 0))
 			{
