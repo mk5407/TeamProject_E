@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <iostream>
 #include "Employee.h"
@@ -10,21 +12,6 @@ using namespace std;
 #define MAX_LEN_NAME (15)
 #define EMPLOYEE_NUM_LENGTH (8)
 
-bool IsUpperCase(string str)
-{
-	for (int i = 0; i < str.length(); i++)
-	{
-		if (str[i] == ' ')
-			continue;
-
-		if ((str[i] < 'A') || (str[i] > 'Z'))
-		{
-			return false;
-		}
-	}
-	return true;
-}
-
 class Column
 {
 public:
@@ -33,6 +20,21 @@ public:
 
 class ColumnName : public Column
 {
+	bool IsUpperCase(string str)
+	{
+		for (unsigned int i = 0; i < str.length(); i++)
+		{
+			if (str[i] == ' ')
+				continue;
+
+			if ((str[i] < 'A') || (str[i] > 'Z'))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 	virtual bool IsValidColumn(Employee emp)
 	{
 		if (emp.getName().length() > MAX_LEN_NAME)
