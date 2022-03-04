@@ -3,46 +3,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <fstream>
 #include <sstream>
 using namespace std;
 
 
-class InputData {
+class InputParcer {
 public:
-    void setInputName(string name) {
-        inputName_ = name;
-    }
-
-    vector<string> readFile() {
-        ifstream fin(inputName_);
-        vector<string> inputStrAll;
-        if (fin.fail()) {
-            return inputStrAll;
-        }
-
-        string line;
-        while (!fin.eof()) {
-            getline(fin, line);
-            inputStrAll.push_back(line);
-        }
-        fin.close();
-        return inputStrAll;
-    }
-
-    vector<string> split(string str, char delimiter) {
+    vector<string> split(string str) {
         vector<string> result;
         stringstream ss(str);
         string word;
 
-        while (getline(ss, word, delimiter)) {
+        while (getline(ss, word, ',')) {
             result.push_back(word);
         }
         return result;
     }
 
     bool isValidExt(string ext) {
-        string txtExt(".txt");
+        string txtExt = ".txt";
         if (ext != txtExt)	return false;
         return true;
     }
@@ -68,9 +47,4 @@ public:
 
         return true;
     }
-
-private:
-    string inputName_;
 };
-
-
