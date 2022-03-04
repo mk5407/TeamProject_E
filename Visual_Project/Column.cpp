@@ -128,3 +128,25 @@ class ColumnBirthday : public Column
         return true;
     }
 };
+
+class ColumnCL : public Column
+{
+public:
+    virtual bool IsValidColumn(Employee emp)
+    {
+        return find(cl.begin(), cl.end(), emp.getCL()) != cl.end();
+    }
+private:
+    const vector<string> cl = { "CL1", "CL2", "CL3", "CL4" };
+};
+
+class ColumnCerti : public Column
+{
+public:
+    virtual bool IsValidColumn(Employee emp)
+    {
+        return find(certi.begin(), certi.end(), emp.getCerti()) != certi.end();
+    }
+private:
+    const vector<string> certi = { "ADV", "PRO", "EX" };
+};

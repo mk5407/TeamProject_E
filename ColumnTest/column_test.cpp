@@ -64,3 +64,43 @@ TEST(ColumnValidTest, BirthdayTest)
     EXPECT_EQ(false, name->IsValidColumn(emp5));
     EXPECT_EQ(false, name->IsValidColumn(emp6));
 }
+
+TEST(ColumnValidTest, CLTest)
+{
+    Employee emp0("", "", "CL1", "", "", "");
+    Employee emp1("", "", "CL2", "", "", "");
+    Employee emp2("", "", "CL3", "", "", "");
+    Employee emp3("", "", "CL4", "", "", "");
+    Employee emp4("", "", "DL5", "", "", "");
+    Employee emp5("", "", "CL0", "", "", "");
+    Employee emp6("", "", "1", "", "", "");
+
+    Column* name = new ColumnCL();
+    EXPECT_EQ(true, name->IsValidColumn(emp0));
+    EXPECT_EQ(true, name->IsValidColumn(emp1));
+    EXPECT_EQ(true, name->IsValidColumn(emp2));
+    EXPECT_EQ(true, name->IsValidColumn(emp3));
+    EXPECT_EQ(false, name->IsValidColumn(emp4));
+    EXPECT_EQ(false, name->IsValidColumn(emp5));
+    EXPECT_EQ(false, name->IsValidColumn(emp6));
+}
+
+TEST(ColumnValidTest, CertiTest)
+{
+    Employee emp0("", "", "", "", "", "ADV");
+    Employee emp1("", "", "", "", "", "PRO");
+    Employee emp2("", "", "", "", "", "EX");
+    Employee emp3("", "", "", "", "", "IM");
+    Employee emp4("", "", "", "", "", "pro");
+    Employee emp5("", "", "", "", "", "EXP");
+    Employee emp6("", "", "", "", "", "123");
+
+    Column* name = new ColumnCerti();
+    EXPECT_EQ(true, name->IsValidColumn(emp0));
+    EXPECT_EQ(true, name->IsValidColumn(emp1));
+    EXPECT_EQ(true, name->IsValidColumn(emp2));
+    EXPECT_EQ(false, name->IsValidColumn(emp3));
+    EXPECT_EQ(false, name->IsValidColumn(emp4));
+    EXPECT_EQ(false, name->IsValidColumn(emp5));
+    EXPECT_EQ(false, name->IsValidColumn(emp6));
+}
