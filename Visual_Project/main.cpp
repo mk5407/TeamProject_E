@@ -6,26 +6,29 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    if (argc != 3) return 0;
+    InputData input;
+    OutputData output;
 
-	//string inputFile = "input_20_20.txt";
-	//string outputFile = "output_20_20.txt";
+    if (!input.isValidArg(argc, argv))   exit(1);
 
-    string inputFile = argv[1];
-    string outputFile = argv[2];
+    string inputFile(argv[1]);
+    string outputFile(argv[2]);
 
-	InputData input;
+    //string inputFile = "input_20_20.txt";
+    //string outputFile = "output_20_20.txt";
+
 	input.setInputName(inputFile);
+    output.setOutputName(outputFile);
 
-	vector<string> inStrAll = input.readFile();
-	if (inStrAll.size() == 0){
-		cout << "file open fail" << endl;
+	vector<string> inputStrAll = input.readFile();
+	if (inputStrAll.size() == 0){
+		cout << "File open failure" << endl;
 		exit(1);
 	}	
 
-    vector<string> outStrAll;
+    vector<string> outputStrAll;
     vector<string> result;
-    for (auto str : inStrAll) {
+    for (auto str : inputStrAll) {
         if (str.length() == 0) break;
 
         vector<string> lineStr = input.split(str, ',');
@@ -47,14 +50,12 @@ int main(int argc, char* argv[])
         }
         
         for (auto lineResult : result) {
-            outStrAll.push_back(lineResult);
+            outputStrAll.push_back(lineResult);
         }
 
     }
 
-    OutputData output;
-    output.setOutputName(outputFile);
-    output.writeFile(inStrAll);
+    output.writeFile(outputStrAll);
 
 	return 0;
 } 

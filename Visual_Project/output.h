@@ -15,15 +15,14 @@ public:
 		outputName_ = name;
 	}
 
-	bool writeFile(vector<string> vectorStr) {
+	bool writeFile(vector<string> outputStrAll) {
 		ofstream fout(outputName_);
 
-		vector<string> outputStr;
 		if (fout.fail()) {
 			return false;
 		}
 
-		for (auto str : vectorStr) {
+		for (auto str : outputStrAll) {
 			fout << str << endl;
 		}
 		return true;
