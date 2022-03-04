@@ -11,25 +11,25 @@ using namespace std;
 
 class OutputData {
 public:
-	void setOutputName(string name) {
-		outputName_ = name;
-	}
+    void setOutputName(string name) {
+        outputName_ = name;
+    }
 
-	bool writeFile(vector<string> outputStrAll) {
-		ofstream fout(outputName_);
+    bool writeFile(vector<string> outputStrAll) {
+        ofstream fout(outputName_);
 
-		if (fout.fail()) {
-			return false;
-		}
+        if (fout.fail()) {
+            return false;
+        }
 
-		for (auto str : outputStrAll) {
-			fout << str << endl;
-		}
-		return true;
-	}
+        for (auto str : outputStrAll) {
+            fout << str << endl;
+        }
+        return true;
+    }
 
 private:
-	string outputName_;
+    string outputName_;
 };
 
 
