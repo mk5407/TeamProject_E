@@ -23,45 +23,80 @@ public:
 		                           phoneNum(vec[(int)Type::PhoneNum]), birthday(vec[(int)Type::BirthDay]), certi(vec[(int)Type::Certi])
 	{}
 
-	string getEmployeeNum()
+	string getEmployeeNum() const
 	{
 		return employeeNum;
 	}
-	string getName()
+	string getName() const
 	{
 		return name;
 	}
-	string getFirstName()
+	string getFirstName() const
 	{
 		return name.substr(0, name.rfind(' '));
 	}
-	string getLastName()
+	string getLastName() const
 	{
 		return name.substr(name.rfind(' ') + 1);
 	}
-	string getCL()
+	string getCL() const
 	{
 		return cl;
 	}
-	string getPhoneNum()
+	string getPhoneNum() const
 	{
 		return phoneNum;
 	}
-	string getMiddlePhoneNum()
+	string getMiddlePhoneNum() const
 	{
 		return phoneNum.substr(4, 4);
 	}
-	string getLastPhoneNum()
+	string getLastPhoneNum() const
 	{
 		return phoneNum.substr(9, 4);
 	}
-	string getBirthday()
+	string getBirthday() const
 	{
 		return birthday;
 	}
-	string getCerti()
+	string getCerti() const
 	{
 		return certi;
+	}
+
+	bool operator== (const Employee& emp)
+	{
+		bool isEqual = true;
+
+		isEqual &= (emp.getEmployeeNum() == employeeNum);
+		isEqual &= (emp.getName() == name);
+		isEqual &= (emp.getCL() == cl);
+		isEqual &= (emp.getPhoneNum() == phoneNum);
+		isEqual &= (emp.getBirthday() == birthday);
+		isEqual &= (emp.getCerti() == certi);
+
+		return isEqual;
+	}
+
+	void setColumnData(Type colType, string data)
+	{
+		if (colType == Type::EmployeeNum)
+			employeeNum = data;
+
+		if (colType == Type::Name)
+			name = data;
+
+		if (colType == Type::CL)
+			cl = data;
+
+		if (colType == Type::PhoneNum)
+			phoneNum = data;
+
+		if (colType == Type::BirthDay)
+			birthday = data;
+
+		if (colType == Type::Certi)
+			certi = data;
 	}
 
 private:
