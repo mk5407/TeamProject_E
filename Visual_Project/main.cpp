@@ -1,22 +1,25 @@
 ﻿#include <iostream>
-#include "input.h"
-#include "output.h"
+#include "inputManager.h"
+#include "inputParcer.h"
+#include "OutputManager.h"
 using namespace std;
 
 
 int main(int argc, char* argv[])
 {
-    InputData input;
-    OutputData output;
+    InputManager input;
+    InputParcer parcer;
+    OutputManager output;
 
     // Visual_Project 속성 > 디버깅 > 명령인수 > input_20_20.txt output_20_20.txt
     // 이렇게 입력하면 됩니다.
     // 
-    // 수동 test를 원하시면 아래의 블럭을 enable 해주세요
-    //string inputFile = "input_20_20.txt";
-    //string outputFile = "output_20_20.txt";
+    // 수동 test를 원하시면 아래의 블럭을 enable 하면 됩니다.
+    //argc = 3;
+    //argv[1] = (char*)"input_20_20.txt";
+    //argv[2] = (char*)"output_20_20.txt";
 
-    if (!input.isValidArg(argc, argv))   exit(1);
+    if (!parcer.isValidArg(argc, argv))   exit(1);
 
     string inputFile(argv[1]);
     string outputFile(argv[2]);
@@ -35,7 +38,7 @@ int main(int argc, char* argv[])
     for (auto str : inputStrAll) {
         if (str.length() == 0) break;
 
-        vector<string> lineStr = input.split(str, ',');
+        vector<string> lineStr = parcer.split(str);
         if (lineStr[0] == "ADD") {
             //callAdd(line);
         }

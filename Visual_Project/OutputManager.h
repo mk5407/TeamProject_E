@@ -9,7 +9,7 @@ using namespace std;
 
 
 
-class OutputData {
+class OutputManager {
 public:
     void setOutputName(string name) {
         outputName_ = name;
@@ -23,7 +23,7 @@ public:
         }
 
         for (auto str : outputStrAll) {
-            fout << str << endl;
+           fout << str << endl;
         }
         return true;
     }
