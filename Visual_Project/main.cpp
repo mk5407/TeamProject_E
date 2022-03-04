@@ -1,39 +1,61 @@
 ﻿#include <iostream>
-#include <vector>
-#include <string>
 #include "input.h"
 #include "output.h"
-#include "utils.h"
 using namespace std;
 
 
 int main(int argc, char* argv[])
 {
-	string inputFile = "input_20_20.txt";
-	string outputFile = "output_20_20.txt";
+    InputData input;
+    OutputData output;
 
-	InputData input;
+    if (!input.isValidArg(argc, argv))   exit(1);
+
+    string inputFile(argv[1]);
+    string outputFile(argv[2]);
+
+    //string inputFile = "input_20_20.txt";
+    //string outputFile = "output_20_20.txt";
+
 	input.setInputName(inputFile);
+    output.setOutputName(outputFile);
 
-	vector<string> inStr = input.readFile();
-	if (inStr.size() == 0){
-		cout << "file open fail" << endl;
+	vector<string> inputStrAll = input.readFile();
+	if (inputStrAll.size() == 0){
+		cout << "File open failure" << endl;
 		exit(1);
 	}	
 
-	Utils util;
-	for (auto str : inStr) {
-		vector<string> line = util.split(str, ',');
-		for (auto word : line) {
-			//call op func
-			cout << word << "::";
-		}
-		cout << endl;
-	}
+    vector<string> outputStrAll;
+    vector<string> result;
+    for (auto str : inputStrAll) {
+        if (str.length() == 0) break;
 
+        vector<string> lineStr = input.split(str, ',');
+        if (lineStr[0] == "ADD") {
+            //callAdd(line);
+        }
+        else if (lineStr[0] == "SCH") {
+            //result = callSch(lineStr);
+        }
+        else if (lineStr[0] == "MOD") {
+            //result = callMod(line);
+        }
+        else if (lineStr[0] == "DEL") {
+            //result = callDel(line);
+        }
+        else {
+            cout << "operation error" << endl;
+            exit(1);
+        }
+        
+        for (auto lineResult : result) {
+            outputStrAll.push_back(lineResult);
+        }
 
+    }
 
-
+    output.writeFile(outputStrAll);
 
 	return 0;
 } 

@@ -3,17 +3,14 @@
 #include <vector>
 #include <string>
 
-
-#include "../Visual_Project/input.cpp"
 #include "../Visual_Project/input.h"
-#include "../Visual_Project/utils.h"
-
+#include "../Visual_Project/output.h"
 
 using namespace std;
 
 
 
-TEST(IO_TestCase, InputTest) {
+TEST(Input_TestCase, InputDataTest) {
 
 	string inputFile = "input_1_1.txt";
 	string outputFile = "output_1_1.txt";
@@ -35,20 +32,13 @@ TEST(IO_TestCase, InputTest) {
 	vectorStr.push_back("DEL, , , ,employeeNum,18115040");
 	vectorStr.push_back("DEL,-p,-l, ,name,MPOSXU");
 	EXPECT_EQ(vectorStr, input.readFile());
-	
+
 
 }
 
 
-TEST(IO_TestCase, OutputTest) {
-
-	EXPECT_EQ(1, 1);
-
-}
-
-
-TEST(IO_TestCase, UtilsTest) {
-	Utils util;
+TEST(Input_TestCase, SplitTest) {
+	InputData util;
 	vector<string> result;
 	result.push_back("aaa");
 	result.push_back("bb");
@@ -65,3 +55,12 @@ TEST(IO_TestCase, UtilsTest) {
 	EXPECT_EQ(result, util.split("ee-fff", '-'));
 
 }
+
+
+TEST(Output_TestCase, OutputTest) {
+
+	EXPECT_EQ(1, 1);
+
+}
+
+
