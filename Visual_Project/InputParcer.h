@@ -20,9 +20,20 @@ public:
         return result;
     }
 
-    bool isValidExt(string ext) {
+    bool isValidFileName(string name) {
+        if (name.length() <= 4) return false;
+        if (name.find("/") != string::npos) return false;
+        if (name.find("\\") != string::npos) return false;
+
+        int dotCnt = 0;
+        for (auto element : name) {
+            if (element == '.') dotCnt++;
+        }
+        if (dotCnt > 1) return false;
+
         string txtExt = ".txt";
-        if (ext != txtExt)	return false;
+        if(txtExt != name.substr(name.size() - 4, 4)) return false;
+
         return true;
     }
 
@@ -34,16 +45,7 @@ public:
 
         string inputFile(argv[1]);
         string outputFile(argv[2]);
-
-        if (!isValidExt(inputFile.substr(inputFile.size() - 4, 4))) {
-            cout << "Input file name failure" << endl;
-            return false;
-        }
-
-        if (!isValidExt(outputFile.substr(outputFile.size() - 4, 4))) {
-            cout << "output file name failure" << endl;
-            return false;
-        }
+        if ((isValidFileName(inputFile)==false) || (isValidFileName(outputFile)==false)) return false;
 
         return true;
     }
