@@ -6,14 +6,19 @@
 
 using namespace std;
 
-enum class Type
+const int EMPLOYEE_INFO_START = 4;
+const int EMPLOYEE_INFO_END = 9;
+
+const int MAX_OPTION2_SIZE = 4;
+
+enum class InputType
 {
-	EmployeeNum,
-	Name,
-	CL,
-	PhoneNum,
-	BirthDay,
-	Certi
+	Option1 = 1,
+	Option2 = 2,
+	Search_type = 4,
+	Search_content,
+	Modify_type,
+	Modify_content
 };
 
 struct FindType {
@@ -35,11 +40,13 @@ public:
 	void modifyEmployeeInfo(vector<Employee*> modify_list);
 
 private:
-	int option1_;
-	int option2_;
+	string getEmployeeInfo(Employee* e, Type type);
+
+	string option1_;
+	string option2_;
 	FindType find_;
 	ModifyType modify_;
 
-	//[TO DO] pointer
+	vector <string> result_string_;
 	vector <Employee*> find_list_; 
 };
