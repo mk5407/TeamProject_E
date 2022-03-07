@@ -9,9 +9,7 @@ using namespace std;
 
 class InputManager {
 public:
-    void setInputName(string name) {
-        inputName_ = name;
-    }
+    InputManager(string name) : inputName_(name) {}
 
     vector<string> readFile() {
         ifstream fin(inputName_);
