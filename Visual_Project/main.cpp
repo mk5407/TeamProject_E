@@ -2,83 +2,36 @@
 #include "InputManager.h"
 #include "InputParcer.h"
 #include "OutputManager.h"
+#include "CommandManager.h"
+#include "Database.h"
 using namespace std;
 
 
-
-
-int employeeManagerRun(int argc, char* argv[])
+int employeeManagerRun(string inputFile, string outputFile)
 {
-    // Visual_Project 속성 > 디버깅 > 명령인수 > input_20_20.txt output_20_20.txt
-    // 이렇게 입력하면 됩니다.
-    // 
-    // 수동 test를 원하시면 아래의 블럭을 enable 하면 됩니다.
-    //argc = 3;
-    argv[1] = (char*)"input_20_20.txt";
-    argv[2] = (char*)"output_20_20.txt";
+    InputParcer* inputPaser = new InputParcer();
+    if (inputPaser->isValidFileName(inputFile) == false || inputPaser->isValidFileName(outputFile) == false)
+        return false;
+    InputManager* inputManager = new InputManager(inputFile);
+    OutputManager* outputManager = new OutputManager(outputFile);
+    CommandManager* commandManager = new CommandManager();
 
-    InputParcer parcer;
-    if (!parcer.isValidArg(argc, argv)) {
-        cout << "Input args failure" << endl;
-        exit(1);
-    }
-
-
-    InputManager input(argv[1]);
-    OutputManager output(argv[2]);
-
-    vector<string> inputStrAll = input.readFile();
-    if (inputStrAll.size() == 0) {
-        cout << "File open failure" << endl;
-        exit(1);
-    }
-
+    vector<string> inputStrAll = inputManager->readFile();
     vector<string> outputStrAll;
-    vector<string> result;
     for (auto str : inputStrAll) {
         if (str.length() == 0) break;
-
-        vector<string> lineStr = parcer.split(str);
-        if (lineStr.size() == 0) {
-            cout << "Column check failure" << endl;
-            exit(1);
-        }
-
-        if (lineStr[0] == "ADD") {
-            //callAdd(line);
-        }
-        else if (lineStr[0] == "SCH") {
-            //result = callSch(lineStr);
-        }
-        else if (lineStr[0] == "MOD") {
-            //result = callMod(line);
-        }
-        else if (lineStr[0] == "DEL") {
-            //result = callDel(line);
-        }
-        else {
-            cout << "operation error" << endl;
-            exit(1);
-        }
-
-        for (auto lineResult : result) {
-            outputStrAll.push_back(lineResult);
-        }
-
+        vector<string> lines = commandManager->executeCmd(inputPaser->split(str));
+        for (string line : lines) outputStrAll.push_back(line);
     }
-
-    output.writeFile(outputStrAll);
-
+    outputManager->writeFile(outputStrAll);
+    delete inputManager, inputPaser, outputManager, commandManager;
     return true;
 }
 
-
-
 int main(int argc, char* argv[])
 {
-    employeeManagerRun(argc, argv);
+    if (argc != 3) exit(1);
+    employeeManagerRun(argv[1], argv[2]);
 
     return 0;
 }
-
-
