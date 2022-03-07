@@ -2,10 +2,13 @@
 #include "inputManager.h"
 #include "inputParcer.h"
 #include "OutputManager.h"
+#include "ColumnChecker.h"
 using namespace std;
 
 
-int main(int argc, char* argv[])
+
+
+int employeeManagerRun(int argc, char* argv[])
 {
     InputManager input;
     InputParcer parcer;
@@ -19,7 +22,10 @@ int main(int argc, char* argv[])
     //argv[1] = (char*)"input_20_20.txt";
     //argv[2] = (char*)"output_20_20.txt";
 
-    if (!parcer.isValidArg(argc, argv))   exit(1);
+    if (!parcer.isValidArg(argc, argv)) {
+        cout << "Input args failure" << endl;
+        exit(1);
+    }
 
     string inputFile(argv[1]);
     string outputFile(argv[2]);
@@ -32,6 +38,9 @@ int main(int argc, char* argv[])
         cout << "File open failure" << endl;
         exit(1);
     }
+
+
+
 
     vector<string> outputStrAll;
     vector<string> result;
@@ -63,6 +72,15 @@ int main(int argc, char* argv[])
     }
 
     output.writeFile(outputStrAll);
+
+
+}
+
+
+
+int main(int argc, char* argv[])
+{
+    employeeManagerRun(argc, argv);
 
     return 0;
 }
