@@ -30,7 +30,7 @@ int employeeManagerRun(string inputFile, string outputFile)
 
 int main(int argc, char* argv[])
 {
-    if (argc != 2) exit(1);
+    if (argc != 3) exit(1);
     employeeManagerRun(argv[1], argv[2]);
 
     return 0;
