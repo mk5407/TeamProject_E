@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../Visual_Project/Column.cpp"
+#include "../Visual_Project/columnChecker.h"
 
 TEST(ColumnValidTest, NameTest)
 {
@@ -103,4 +103,28 @@ TEST(ColumnValidTest, CertiTest)
     EXPECT_EQ(false, name->IsValidColumn(emp4));
     EXPECT_EQ(false, name->IsValidColumn(emp5));
     EXPECT_EQ(false, name->IsValidColumn(emp6));
+}
+
+TEST(ColumnValidTest, ColumnCheckerTest)
+{
+    vector<string> line0 = { "12345678", "BRIAN JUNG", "CL1", "010-1234-5678", "19991201", "PRO" };
+    vector<string> line1 = { "123459", "STEVE JOBS", "CL4", "010-8274-2988", "20001230", "ADV" };
+    vector<string> line2 = { "12345670", "JOHN DOE", "CL3", "010-1244-6432", "19961208", "EXP" };
+    vector<string> line3 = { "12345671", "BILL GATES", "CL4", "01012341225", "19000574", "EX" };
+    vector<string> line4 = { "12345672", "JAMES CHOI", "CL3", "010-1241-9880", "201231", "ADV" };
+    vector<string> line5 = { "12345673", "GILDONG HONG", "CL2", "010-7247-1123", "19550208", "PRO" };
+    vector<string> line6 = { "12345674", "BAB KIM", "CL1", "010-1554-8964", "19701106", "EX" };
+    vector<string> line7 = { "12345675", "TIM COOK", "CL3", "010-7659-0757", "19470524", "PRO" };
+
+    //ColumnChecker* checker = new ColumnChecker();
+
+    //ColumnChecker *columnChecker = new ColumnChecker();
+    //EXPECT_EQ(true, columnChecker->columnCheck(line0));
+    //EXPECT_EQ(false, columnChecker->columnCheck(line1));
+    //EXPECT_EQ(false, columnChecker->columnCheck(line2));
+    //EXPECT_EQ(false, columnChecker->columnCheck(line3));
+    //EXPECT_EQ(true, columnChecker->columnCheck(line4));
+    //EXPECT_EQ(true, columnChecker->columnCheck(line5));
+    //EXPECT_EQ(true, columnChecker->columnCheck(line6));
+    //EXPECT_EQ(true, columnChecker->columnCheck(line7));
 }
