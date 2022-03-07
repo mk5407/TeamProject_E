@@ -83,17 +83,17 @@ TEST(InputParcerTest, ValidArgTest) {
 }
 
 
-TEST(InputManagerTest, ReadFileTest) {
-    InputManager input;
-    string inputFile;
+TEST(InputManagerTest, ReadFileTest1) {
+    InputManager input("input_20_20_no_file.txt");
+    vector<string> vectorStr;
+    EXPECT_EQ(vectorStr, input.readFile());
+}
+
+
+TEST(InputManagerTest, ReadFileTest2) {
+    InputManager input("input_20_20.txt");
     vector<string> vectorStr;
 
-    inputFile = "input_20_20_no_file.txt";
-    input.setInputName(inputFile);
-    EXPECT_EQ(vectorStr, input.readFile());
-
-    inputFile = "input_20_20.txt";
-    input.setInputName(inputFile);
     vectorStr.push_back("ADD, , , ,15123099,VXIHXOTH JHOP,CL3,010-3112-2609,19771211,ADV");
     vectorStr.push_back("ADD, , , ,17112609,FB NTAWR,CL4,010-5645-6122,19861203,PRO");
     vectorStr.push_back("ADD, , , ,18115040,TTETHU HBO,CL3,010-4581-2050,20080718,ADV");
@@ -139,17 +139,16 @@ TEST(InputManagerTest, ReadFileTest) {
 }
 
 
-TEST(OutputManagerTest, WriteFileTest) {
-    OutputManager output;
-    string outputFile;
+TEST(OutputManagerTest, WriteFileTest1) {
+    OutputManager output("output_20_20_temp1.txt");
+    vector<string> vectorStr;
+    EXPECT_EQ(true, output.writeFile(vectorStr));
+}
+
+TEST(OutputManagerTest, WriteFileTest2) {
+    OutputManager output("output_20_20_temp2.txt");
     vector<string> vectorStr;
 
-    outputFile = "output_20_20_temp1.txt";
-    output.setOutputName(outputFile);
-    EXPECT_EQ(true, output.writeFile(vectorStr));
-
-    outputFile = "output_20_20_temp2.txt";
-    output.setOutputName(outputFile);
     vectorStr.push_back("aaa");
     vectorStr.push_back("bbb");
     EXPECT_EQ(true, output.writeFile(vectorStr));
@@ -158,12 +157,9 @@ TEST(OutputManagerTest, WriteFileTest) {
 
 TEST(OutputManagerTest, WriteReadFileTest) {
     //write file
-    OutputManager output;
-    string outputFile;
+    OutputManager output("output_20_20_temp3.txt");
     vector<string> vectorStrWrite;
 
-    outputFile = "output_20_20_temp3.txt";
-    output.setOutputName(outputFile);
     vectorStrWrite.push_back("aaa");
     vectorStrWrite.push_back("bbb");
     vectorStrWrite.push_back("ccc");
@@ -172,11 +168,10 @@ TEST(OutputManagerTest, WriteReadFileTest) {
     vectorStrWrite.push_back("");
 
     //read file
-    InputManager input;
-    string inputFile;
+    InputManager input("output_20_20_temp3.txt");
     vector<string> vectorStrRead;
-    inputFile = "output_20_20_temp3.txt";
-    input.setInputName(inputFile);
     vectorStrRead = input.readFile();
     EXPECT_EQ(vectorStrWrite, vectorStrRead);
 }
+
+
