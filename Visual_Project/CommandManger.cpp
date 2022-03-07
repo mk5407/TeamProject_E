@@ -61,7 +61,17 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
         outputStrAll = printOutputString(sch_list);
 
-        if (cmd_ == "MOD") iMod_->modify(modify_.type_,modify_.content_, sch_list);
+        if (cmd_ == "MOD") 
+        { 
+            if (modify_.type_ == Type::EmployeeNum)
+            {
+                cout << "Invalid Modify Type: The Employee number cannot be changed. " << endl;
+            }
+            else
+            {
+                iMod_->modify(modify_.type_, modify_.content_, sch_list);
+            }
+        }
         if (cmd_ == "DEL") iDel_->del(sch_list);
     }
 
