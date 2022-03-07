@@ -3,8 +3,8 @@
 #include <vector>
 #include <string>
 
-#include "../Visual_Project/inputManager.h"
-#include "../Visual_Project/inputParcer.h"
+#include "../Visual_Project/InputManager.h"
+#include "../Visual_Project/InputParcer.h"
 #include "../Visual_Project/OutputManager.h"
 
 using namespace std;

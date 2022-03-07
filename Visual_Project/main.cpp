@@ -1,11 +1,13 @@
 ﻿#include <iostream>
-#include "inputManager.h"
-#include "inputParcer.h"
+#include "InputManager.h"
+#include "InputParcer.h"
 #include "OutputManager.h"
 using namespace std;
 
 
-int main(int argc, char* argv[])
+
+
+int employeeManagerRun(int argc, char* argv[])
 {
     InputManager input;
     InputParcer parcer;
@@ -19,7 +21,10 @@ int main(int argc, char* argv[])
     //argv[1] = (char*)"input_20_20.txt";
     //argv[2] = (char*)"output_20_20.txt";
 
-    if (!parcer.isValidArg(argc, argv))   exit(1);
+    if (!parcer.isValidArg(argc, argv)) {
+        cout << "Input args failure" << endl;
+        exit(1);
+    }
 
     string inputFile(argv[1]);
     string outputFile(argv[2]);
@@ -39,6 +44,11 @@ int main(int argc, char* argv[])
         if (str.length() == 0) break;
 
         vector<string> lineStr = parcer.split(str);
+        if (lineStr.size() == 0) {
+            cout << "Column check failure" << endl;
+            exit(1);
+        }
+
         if (lineStr[0] == "ADD") {
             //callAdd(line);
         }
@@ -63,6 +73,15 @@ int main(int argc, char* argv[])
     }
 
     output.writeFile(outputStrAll);
+
+    return true;
+}
+
+
+
+int main(int argc, char* argv[])
+{
+    employeeManagerRun(argc, argv);
 
     return 0;
 }
