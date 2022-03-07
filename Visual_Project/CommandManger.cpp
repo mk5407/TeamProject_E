@@ -25,8 +25,10 @@ CommandManager::~CommandManager()
 
 void CommandManager::parsingCMD(vector<string> str_list)
 {
-
     cmd_ = str_list[(int)InputType::CMD_Type];
+    
+   if (cmd_ == "ADD")   return;     
+
     option1_ = str_list[(int)InputType::Option1];
     option2_ = str_list[(int)InputType::Option2];
 
@@ -45,7 +47,7 @@ void CommandManager::parsingCMD(vector<string> str_list)
         type_index++;
     }
 
-    if(cmd_=="MOD")
+    if(cmd_ == "MOD")
     { 
         type_index = (int)Type::EmployeeNum;
 
@@ -121,6 +123,7 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
 {   
     vector<string> outputStrAll;
     
+    parsingCMD(cmdStr);
 
     if (cmd_ == "ADD") 
     {
@@ -128,8 +131,6 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
     }
     else
     {
-        parsingCMD(cmdStr);
-
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
 
         if (option1_ == "-p")
@@ -185,7 +186,7 @@ vector<string> CommandManager::printOutputString(vector<int> sch_list)
                     Type type = static_cast<Type>(i);
 
                     output += getEmployeeInfo(e, type);
-                    output += ",";
+                    if (i != EMPLOYEE_INFO_END) output += ",";
                 }
 
                 outputStrAll.push_back(output);
