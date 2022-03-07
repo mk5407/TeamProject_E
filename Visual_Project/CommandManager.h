@@ -46,6 +46,7 @@ public:
 
     vector<string> printOutputString(vector<int> sch_list);
     string getEmployeeInfo(Employee* e, Type type);
+    void sortEmployee(vector<int>& emp_list, int left, int right);
 
 private:
     EmployeeDatabase db_;

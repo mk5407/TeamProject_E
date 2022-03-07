@@ -1,6 +1,8 @@
 #include "CommandManager.h"
+
 #include <iostream>
 #include <string>
+
 
 using namespace std;
 
@@ -26,31 +28,97 @@ void CommandManager::parsingCMD(vector<string> str_list)
     option1_ = str_list[(int)InputType::Option1];
     option2_ = str_list[(int)InputType::Option2];
 
-    int type = (int)Type::EmployeeNum;
+    int type_index = (int)Type::EmployeeNum;
 
-    vector<string> mod_type = { "employeeNum", "name", "cl", "phoneNum", "birthday", "certi" };
+    vector<string> employee_info = { "employeeNum", "name", "cl", "phoneNum", "birthday", "certi" };
 
-    for (string mod_select : mod_type)
+    for (string info : employee_info)
     {
-        if (!mod_select.compare(str_list[(int)InputType::Search_type]))
+        if (!info.compare(str_list[(int)InputType::Search_type]))
         {
-            find_.type_ = static_cast<Type>(type);
+            find_.type_ = static_cast<Type>(type_index);
             find_.content_ = str_list[(int)InputType::Search_content];
         }
 
-        if (!mod_select.compare(str_list[(int)InputType::Modify_type]))
-        {
-            modify_.type_ = static_cast<Type>(type);
-            modify_.content_ = str_list[(int)InputType::Modify_content];
-        }
-        type++;
+        type_index++;
     }
+
+    if(cmd_=="MOD")
+    { 
+        type_index = (int)Type::EmployeeNum;
+
+        for (string info : employee_info)
+        {
+            if (!info.compare(str_list[(int)InputType::Modify_type]))
+            {
+                modify_.type_ = static_cast<Type>(type_index);
+                modify_.content_ = str_list[(int)InputType::Modify_content];
+            }
+            type_index++;
+        }
+    }
+}
+
+void CommandManager::sortEmployee(vector<int>& emp_list, int left, int right)
+{
+    if (left >= right) return;
+    int pivot = left;
+    int tempLeft = left + 1;
+    int tempRight = right;
+
+    while (tempLeft <= tempRight)
+    {
+        int leftEmployeeNum = stoi(db_.getData(emp_list[tempLeft])->getEmployeeNum());
+        int rightEmployeeNum = stoi(db_.getData(emp_list[tempRight])->getEmployeeNum());
+        int pivotEmployeeNum = stoi(db_.getData(emp_list[pivot])->getEmployeeNum());
+
+        if (leftEmployeeNum >= OLDEST_EMP_NUM)
+            leftEmployeeNum += 1900000000;
+        if (rightEmployeeNum >= OLDEST_EMP_NUM)
+            rightEmployeeNum += 1900000000;
+        if (pivotEmployeeNum >= OLDEST_EMP_NUM)
+            pivotEmployeeNum += 1900000000;
+        if (leftEmployeeNum <= YOUNGEST_EMP_NUM)
+            leftEmployeeNum += 2000000000;
+        if (rightEmployeeNum <= YOUNGEST_EMP_NUM)
+            rightEmployeeNum += 2000000000;
+        if (pivotEmployeeNum <= YOUNGEST_EMP_NUM)
+            pivotEmployeeNum += 2000000000;
+
+        while ((leftEmployeeNum < pivotEmployeeNum) && (tempLeft <= right))
+        {
+            tempLeft++;
+            leftEmployeeNum = stoi(db_.getData(emp_list[tempLeft])->getEmployeeNum());
+            if (leftEmployeeNum >= OLDEST_EMP_NUM)
+                leftEmployeeNum += 1900000000;
+            if (leftEmployeeNum <= YOUNGEST_EMP_NUM)
+                leftEmployeeNum += 2000000000;
+        }
+        while ((rightEmployeeNum > pivotEmployeeNum) && (tempRight > left))
+        {
+            tempRight--;
+            rightEmployeeNum = stoi(db_.getData(emp_list[tempRight])->getEmployeeNum());
+            if (rightEmployeeNum >= OLDEST_EMP_NUM)
+                rightEmployeeNum += 1900000000;
+            if (rightEmployeeNum <= YOUNGEST_EMP_NUM)
+                rightEmployeeNum += 2000000000;
+        }
+
+        if (tempLeft < tempRight)
+        {
+            swap(emp_list[tempLeft], emp_list[tempRight]);
+        }
+        else break;
+    }
+    swap(emp_list[tempRight], emp_list[pivot]);
+    sortEmployee(emp_list, left, tempRight - 1);
+    sortEmployee(emp_list, tempRight + 1, right);
 }
 
 vector<string> CommandManager::executeCmd(vector<string> cmdStr)
 {   
     vector<string> outputStrAll;
-    parsingCMD(cmdStr);
+    
 
     if (cmd_ == "ADD") 
     {
@@ -58,10 +126,25 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
     }
     else
     {
+        parsingCMD(cmdStr);
+
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
         outputStrAll = printOutputString(sch_list);
 
-        if (cmd_ == "MOD") iMod_->modify(modify_.type_,modify_.content_, sch_list);
+        if (option1_ == "-p")
+            sortEmployee(sch_list, 0, sch_list.size() - 1);
+
+        if (cmd_ == "MOD") 
+        { 
+            if (modify_.type_ == Type::EmployeeNum)
+            {
+                cout << "Invalid Modify Type: The Employee number cannot be changed. " << endl;
+            }
+            else
+            {
+                iMod_->modify(modify_.type_, modify_.content_, sch_list);
+            }
+        }
         if (cmd_ == "DEL") iDel_->del(sch_list);
     }
 
