@@ -19,10 +19,10 @@ public:
             result.push_back(word);
         }
 
-        //ColumnChecker checker;
-        //if (checker.columnCheck(result) == false) {
-        //    result.clear();
-        //}
+        ColumnChecker checker;
+        if (checker.columnCheck(result) == false) {
+            result.clear();
+        }
 
         return result;
     }
