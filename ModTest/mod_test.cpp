@@ -8,7 +8,7 @@
 using namespace std;
 
 TEST(ModInitTest, ModTest) {
-  
+
     Employee* humon1 = new Employee("15123099", "VXIHXOTH JHOP", "CL3", "010 - 3112 - 2609", "19771211", "ADV");
     Employee* humon2 = new Employee( "17112609", "FB NTAWR",      "CL4", "010 - 5645 - 6122", "19861203", "PRO");
     Employee* humon3 = new Employee( "14130827", "TTETHU HBO",    "CL3", "010 - 4581 - 2050", "20080718", "ADV");
