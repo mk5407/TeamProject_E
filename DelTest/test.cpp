@@ -3,7 +3,7 @@
 #include <string>
 
 #include "MockDatabase.h"
-#include "../Visual_Project/database.h"
+#include "../Visual_Project/Database.h"
 #include "../Visual_Project/Del.cpp"
 
 using namespace std;

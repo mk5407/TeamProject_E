@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-#include "../Visual_Porject/database.h"
+#include "../Visual_Project/Database.h"
 #include <vector>
 using namespace std;
 
