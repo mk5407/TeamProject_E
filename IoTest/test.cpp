@@ -29,21 +29,33 @@ TEST(InputParcerTest, SplitTest) {
     EXPECT_EQ(result, parcer.split("ee,fff"));
 }
 
-TEST(InputParcerTest, ValidExtTest) {
+TEST(InputParcerTest, ValidFilenameTest) {
     InputParcer parcer;
     string ext;
 
-    ext = ".txt";
-    EXPECT_EQ(true, parcer.isValidExt(ext));
-
-    ext = ".aaa";
-    EXPECT_EQ(false, parcer.isValidExt(ext));
+    ext = "aaa.txt";
+    EXPECT_EQ(true, parcer.isValidFileName(ext));
 
     ext = "txt";
-    EXPECT_EQ(false, parcer.isValidExt(ext));
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
+
+    ext = ".aaa";
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
+
+    ext = "abc..txt";
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
+
+    ext = "/.txt";
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
+
+    ext = "aa/b.txt";
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
+
+    ext = "aa\\b.txt";
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
 
     ext = "filename,txt";
-    EXPECT_EQ(false, parcer.isValidExt(ext));
+    EXPECT_EQ(false, parcer.isValidFileName(ext));
 }
 
 TEST(InputParcerTest, ValidArgTest) {
@@ -55,7 +67,7 @@ TEST(InputParcerTest, ValidArgTest) {
     argv[1] = "in.txt";
     argv[2] = "out.txt";
     EXPECT_EQ(true, parcer.isValidArg(argc, argv));
-    
+
     argc = 2;
     EXPECT_EQ(false, parcer.isValidArg(argc, argv));
 
