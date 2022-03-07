@@ -14,7 +14,7 @@ public:
     virtual void modify(Type type, string value, vector<int> modify_list) = 0;
 };
 
-class Mod : IMod
+class Mod : public IMod
 {
 public:
     Mod(IDatabase<Employee>* database);
