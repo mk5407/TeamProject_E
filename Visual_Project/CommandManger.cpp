@@ -92,6 +92,8 @@ void CommandManager::sortEmployee(vector<int>& emp_list, int left, int right)
         while ((leftEmployeeNum < pivotEmployeeNum) && (tempLeft <= right))
         {
             tempLeft++;
+            if (tempLeft > right)
+                break;
             leftEmployeeNum = stoi(db_.getData(emp_list[tempLeft])->getEmployeeNum());
             if (leftEmployeeNum >= OLDEST_EMP_NUM)
                 leftEmployeeNum += 1900000000;
@@ -101,6 +103,8 @@ void CommandManager::sortEmployee(vector<int>& emp_list, int left, int right)
         while ((rightEmployeeNum > pivotEmployeeNum) && (tempRight > left))
         {
             tempRight--;
+            if (tempRight < left)
+                break;
             rightEmployeeNum = stoi(db_.getData(emp_list[tempRight])->getEmployeeNum());
             if (rightEmployeeNum >= OLDEST_EMP_NUM)
                 rightEmployeeNum += 1900000000;
