@@ -15,7 +15,6 @@ int employeeManagerRun(string inputFile, string outputFile)
     InputManager* inputManager = new InputManager(inputFile);
     OutputManager* outputManager = new OutputManager(outputFile);
     CommandManager* commandManager = new CommandManager();
-    IDatabase<Employee>* database = new EmployeeDatabase();
 
     vector<string> inputStrAll = inputManager->readFile();
     vector<string> outputStrAll;
@@ -25,7 +24,7 @@ int employeeManagerRun(string inputFile, string outputFile)
         for (string line : lines) outputStrAll.push_back(line);
     }
     outputManager->writeFile(outputStrAll);
-    delete inputManager, inputPaser, outputManager, commandManager, database;
+    delete inputManager, inputPaser, outputManager, commandManager;
     return true;
 }
 
