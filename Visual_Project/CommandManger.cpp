@@ -129,10 +129,11 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
         parsingCMD(cmdStr);
 
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
-        outputStrAll = printOutputString(sch_list);
 
         if (option1_ == "-p")
             sortEmployee(sch_list, 0, sch_list.size() - 1);
+
+        outputStrAll = printOutputString(sch_list);
 
         if (cmd_ == "MOD") 
         { 
