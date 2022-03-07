@@ -1,6 +1,6 @@
 ﻿#include <iostream>
-#include "inputManager.h"
-#include "inputParcer.h"
+#include "InputManager.h"
+#include "InputParcer.h"
 #include "OutputManager.h"
 #include "ColumnChecker.h"
 using namespace std;
@@ -44,10 +44,13 @@ int employeeManagerRun(int argc, char* argv[])
 
     vector<string> outputStrAll;
     vector<string> result;
+    ColumnChecker checker;
     for (auto str : inputStrAll) {
         if (str.length() == 0) break;
 
         vector<string> lineStr = parcer.split(str);
+        if (checker.columnCheck(lineStr) == false) return false;
+
         if (lineStr[0] == "ADD") {
             //callAdd(line);
         }
@@ -73,7 +76,7 @@ int employeeManagerRun(int argc, char* argv[])
 
     output.writeFile(outputStrAll);
 
-
+    return true;
 }
 
 
