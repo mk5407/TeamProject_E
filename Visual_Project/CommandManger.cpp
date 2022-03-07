@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define SEARCH_LIST_MAX    (5)
+
 CommandManager::CommandManager()
 {
     IDatabase<Employee>* db_pointer = (IDatabase<Employee>*)(&db_);
@@ -90,6 +92,8 @@ void CommandManager::sortEmployee(vector<int>& emp_list, int left, int right)
         while ((leftEmployeeNum < pivotEmployeeNum) && (tempLeft <= right))
         {
             tempLeft++;
+            if (tempLeft > right)
+                break;
             leftEmployeeNum = stoi(db_.getData(emp_list[tempLeft])->getEmployeeNum());
             if (leftEmployeeNum >= OLDEST_EMP_NUM)
                 leftEmployeeNum += 1900000000;
@@ -99,6 +103,8 @@ void CommandManager::sortEmployee(vector<int>& emp_list, int left, int right)
         while ((rightEmployeeNum > pivotEmployeeNum) && (tempRight > left))
         {
             tempRight--;
+            if (tempRight < left)
+                break;
             rightEmployeeNum = stoi(db_.getData(emp_list[tempRight])->getEmployeeNum());
             if (rightEmployeeNum >= OLDEST_EMP_NUM)
                 rightEmployeeNum += 1900000000;
@@ -130,10 +136,11 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
     else
     {
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
-        outputStrAll = printOutputString(sch_list);
 
         if (option1_ == "-p")
             sortEmployee(sch_list, 0, sch_list.size() - 1);
+
+        outputStrAll = printOutputString(sch_list);
 
         if (cmd_ == "MOD") 
         { 
@@ -171,6 +178,7 @@ vector<string> CommandManager::printOutputString(vector<int> sch_list)
         }
         else
         {
+            sch_size = sch_size > SEARCH_LIST_MAX ? SEARCH_LIST_MAX : sch_size;
             for (int index = 0; index < sch_size; index++)
             {
                 Employee* e = db_.getData(sch_list[index]);
@@ -201,4 +209,4 @@ string CommandManager::getEmployeeInfo(Employee * e, Type type)
     int index = (int)type - (int)Type::EmployeeNum;
 
     return employeeInfo[index];
-}}
+}
