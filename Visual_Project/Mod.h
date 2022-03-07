@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Column.cpp"
+#include "column.h"
 #include "database.h"
 
 using namespace std;
