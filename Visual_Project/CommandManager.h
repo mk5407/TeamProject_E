@@ -1,14 +1,18 @@
 #pragma once
 
+#include <vector>
 #include "OutputManager.h" 
 #include "database.h"
 
 #include "Sch.h"
 #include "Del.h"
 #include "Mod.h"
-#include "add.cpp"
+#include "add.h"
 
 using namespace std;
+
+const int EMPLOYEE_INFO_START = 4;
+const int EMPLOYEE_INFO_END = 9;
 
 enum class InputType
 {
@@ -37,8 +41,11 @@ public:
     CommandManager();
     ~CommandManager();
 
-    void executeCmd(vector<string> cmdStr);
+    vector<string> executeCmd(vector<string> cmdStr);
     void parsingCMD(vector<string> str_list);
+
+    vector<string> printOutputString(vector<int> sch_list);
+    string getEmployeeInfo(Employee* e, Type type);
 
 private:
     EmployeeDatabase db_;

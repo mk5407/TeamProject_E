@@ -47,8 +47,9 @@ void CommandManager::parsingCMD(vector<string> str_list)
     }
 }
 
-void CommandManager::executeCmd(vector<string> cmdStr)
-{
+vector<string> CommandManager::executeCmd(vector<string> cmdStr)
+{   
+    vector<string> outputStrAll;
     parsingCMD(cmdStr);
 
     if (cmd_ == "ADD") 
@@ -58,8 +59,54 @@ void CommandManager::executeCmd(vector<string> cmdStr)
     else
     {
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
+        outputStrAll = printOutputString(sch_list);
 
         if (cmd_ == "MOD") iMod_->modify(modify_.type_,modify_.content_, sch_list);
         if (cmd_ == "DEL") iDel_->del(sch_list);
     }
+
+    return outputStrAll;
+}
+
+
+vector<string> CommandManager::printOutputString(vector<int> sch_list)
+{
+    vector<string> outputStrAll;
+    int sch_size = sch_list.size();
+
+    if (option1_ != "-p")
+    {
+        string size_str = ( sch_size > 0 ) ? to_string(sch_size) : "NONE";
+        outputStrAll.push_back(cmd_ + "," + size_str);
+    }
+    else
+    {
+        for (int index = 0; index < sch_size; index++)
+        {
+            Employee* e = db_.getData(sch_list[index]);
+
+            string output = cmd_ + ",";
+
+            for (int i = EMPLOYEE_INFO_START; i <= EMPLOYEE_INFO_END; i++)
+            {
+                Type type = static_cast<Type>(i);
+
+                output += getEmployeeInfo(e, type);
+                output += ",";
+            }
+
+            outputStrAll.push_back(output);
+        }
+    }
+
+    return outputStrAll;
+}
+
+string CommandManager::getEmployeeInfo(Employee * e, Type type)
+{
+    string employeeInfo[] = { e->getEmployeeNum(), e->getName(), e->getCL(), e->getPhoneNum(),e->getBirthday(), e->getCerti() };
+
+    int index = (int)type - (int)Type::EmployeeNum;
+
+    return employeeInfo[index];
 }
