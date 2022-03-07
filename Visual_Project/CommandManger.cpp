@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define SEARCH_LIST_MAX    (5)
+
 CommandManager::CommandManager()
 {
     IDatabase<Employee>* db_pointer = (IDatabase<Employee>*)(&db_);
@@ -171,6 +173,7 @@ vector<string> CommandManager::printOutputString(vector<int> sch_list)
         }
         else
         {
+            sch_size = sch_size > SEARCH_LIST_MAX ? SEARCH_LIST_MAX : sch_size;
             for (int index = 0; index < sch_size; index++)
             {
                 Employee* e = db_.getData(sch_list[index]);
