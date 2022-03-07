@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Column.cpp"
-#include "database.h"
+#include "Database.h"
 
 using namespace std;
 

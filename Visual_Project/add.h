@@ -1,6 +1,6 @@
 #pragma once
 #include "Employee.h"
-#include "database.h"
+#include "Database.h"
 
 class IAdd
 {

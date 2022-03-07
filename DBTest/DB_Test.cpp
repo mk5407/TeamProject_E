@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "MockDatabase.h"
-#include "../Visual_Project/database.h"
+#include "../Visual_Project/Database.h"
 
 TEST(DatabaseTest, MockDBTest)
 {
