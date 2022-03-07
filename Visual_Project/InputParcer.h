@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include "ColumnChecker.h"
 using namespace std;
 
 
@@ -17,6 +18,12 @@ public:
         while (getline(ss, word, ',')) {
             result.push_back(word);
         }
+
+        ColumnChecker checker;
+        if (checker.columnCheck(result) == false) {
+            result.clear();
+        }            
+
         return result;
     }
 
