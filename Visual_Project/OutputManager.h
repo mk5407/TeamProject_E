@@ -11,9 +11,7 @@ using namespace std;
 
 class OutputManager {
 public:
-    void setOutputName(string name) {
-        outputName_ = name;
-    }
+    OutputManager(string name) : outputName_(name) {}
 
     bool writeFile(vector<string> outputStrAll) {
         ofstream fout(outputName_);
