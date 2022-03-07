@@ -1,6 +1,8 @@
 #include "CommandManager.h"
+
 #include <iostream>
 #include <string>
+
 
 using namespace std;
 
@@ -26,31 +28,42 @@ void CommandManager::parsingCMD(vector<string> str_list)
     option1_ = str_list[(int)InputType::Option1];
     option2_ = str_list[(int)InputType::Option2];
 
-    int type = (int)Type::EmployeeNum;
+    int type_index = (int)Type::EmployeeNum;
 
-    vector<string> mod_type = { "employeeNum", "name", "cl", "phoneNum", "birthday", "certi" };
+    vector<string> employee_info = { "employeeNum", "name", "cl", "phoneNum", "birthday", "certi" };
 
-    for (string mod_select : mod_type)
+    for (string info : employee_info)
     {
-        if (!mod_select.compare(str_list[(int)InputType::Search_type]))
+        if (!info.compare(str_list[(int)InputType::Search_type]))
         {
-            find_.type_ = static_cast<Type>(type);
+            find_.type_ = static_cast<Type>(type_index);
             find_.content_ = str_list[(int)InputType::Search_content];
         }
 
-        if (!mod_select.compare(str_list[(int)InputType::Modify_type]))
-        {
-            modify_.type_ = static_cast<Type>(type);
-            modify_.content_ = str_list[(int)InputType::Modify_content];
-        }
-        type++;
+        type_index++;
     }
+
+    if(cmd_=="MOD")
+    { 
+        type_index = (int)Type::EmployeeNum;
+
+        for (string info : employee_info)
+        {
+            if (!info.compare(str_list[(int)InputType::Modify_type]))
+            {
+                modify_.type_ = static_cast<Type>(type_index);
+                modify_.content_ = str_list[(int)InputType::Modify_content];
+            }
+            type_index++;
+        }
+    }
+
 }
 
 vector<string> CommandManager::executeCmd(vector<string> cmdStr)
 {   
     vector<string> outputStrAll;
-    parsingCMD(cmdStr);
+    
 
     if (cmd_ == "ADD") 
     {
@@ -58,10 +71,22 @@ vector<string> CommandManager::executeCmd(vector<string> cmdStr)
     }
     else
     {
+        parsingCMD(cmdStr);
+
         vector<int> sch_list = iSch_->search(option2_, find_.type_, find_.content_);
         outputStrAll = printOutputString(sch_list);
 
-        if (cmd_ == "MOD") iMod_->modify(modify_.type_,modify_.content_, sch_list);
+        if (cmd_ == "MOD") 
+        { 
+            if (modify_.type_ == Type::EmployeeNum)
+            {
+                cout << "Invalid Modify Type: The Employee number cannot be changed. " << endl;
+            }
+            else
+            {
+                iMod_->modify(modify_.type_, modify_.content_, sch_list);
+            }
+        }
         if (cmd_ == "DEL") iDel_->del(sch_list);
     }
 
