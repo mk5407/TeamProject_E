@@ -2,38 +2,25 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Employee.h"
-#include "database.h"
+#include "add.h"
+
 using namespace std;
 
-class IAdd
+Add::Add(IDatabase<Employee>* db)
 {
-public: 
-	virtual ~IAdd() {};
-	virtual void add(vector<string>& strVector) = 0;
-};
+	this->db = db;
+}
 
-class Add : public IAdd
+void Add::add(vector<string>& strVector)
 {
-public:
-	Add(IDatabase<Employee>* db)
+	size_t dbSize = db->getDbSize();
+	Employee* emp_ptr = new Employee(strVector);
+	for (int i = 0; i < dbSize; i++)
 	{
-		this->db = db;
-	}
+		if (db->getData(i)->getEmployeeNum() == strVector[(int)Type::EmployeeNum])
+			return;
 
-	void add(vector<string>& strVector)
-	{
-		size_t dbSize = db->getDbSize();
-		Employee* emp_ptr = new Employee(strVector);
-		for (int i = 0; i < dbSize; i++)
-		{
-			if (db->getData(i)->getEmployeeNum() == strVector[(int)Type::EmployeeNum])
-				return;
-		}
-		if(emp_ptr)
-			db->addData(emp_ptr);
 	}
-
-private:
-	IDatabase<Employee>* db;
-};
+	if(emp_ptr)
+		db->addData(emp_ptr);
+}
