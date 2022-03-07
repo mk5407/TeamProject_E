@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "../Visual_Project/columnChecker.h"
+#include "../Visual_Project/ColumnChecker.h"
 
 TEST(ColumnValidTest, NameTest)
 {
