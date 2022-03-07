@@ -9,9 +9,9 @@ using namespace std;
 
 TEST(ModInitTest, ModTest) {
   
-	//Employee humon1 = { "15123099", "VXIHXOTH JHOP", "CL3", "010 - 3112 - 2609", "19771211", "ADV"};
-	//Employee humon2 = { "17112609", "FB NTAWR",      "CL4", "010 - 5645 - 6122", "19861203", "PRO"};
-	//Employee humon3 = { "14130827", "TTETHU HBO",    "CL3", "010 - 4581 - 2050", "20080718", "ADV"};
+	Employee* humon1 = new Employee("15123099", "VXIHXOTH JHOP", "CL3", "010 - 3112 - 2609", "19771211", "ADV");
+	Employee* humon2 = new Employee( "17112609", "FB NTAWR",      "CL4", "010 - 5645 - 6122", "19861203", "PRO");
+	Employee* humon3 = new Employee( "14130827", "TTETHU HBO",    "CL3", "010 - 4581 - 2050", "20080718", "ADV");
 
 	//vector<Employee> employee_list;
 	//employee_list.push_back(humon1);
@@ -51,4 +51,28 @@ TEST(ModInitTest, ModTest) {
 	//Mod modObj6("MOD,-p, , ,certi,PRO,birthday,20110706");
 	//vector<Employee*> find_list6 = modObj6.getModifyList(employee_list);
 	//EXPECT_EQ("FB NTAWR", find_list6.front()->getName());
+
+	EmployeeDatabase* db = new EmployeeDatabase;
+	db->addData(humon1);
+    db->addData(humon2);
+    db->addData(humon3);
+
+	IDatabase<Employee>* db_pointer = (IDatabase<Employee>*)(db);
+
+	IMod *iMod = new Mod(db_pointer);
+	int index = 2;
+	vector <int> list;
+	list.push_back(index);
+
+	iMod->modify(Type::Name,"MINKYU KIM", list);
+
+	EXPECT_EQ("MINKYU KIM", db->getData(2)->getName());
+
+	for(int index = 0; index< db->getDbSize(); index++)
+    {
+        db->delData(index);
+    }
+	
+	delete iMod;
+	delete db;
 }
