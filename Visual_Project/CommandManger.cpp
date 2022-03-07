@@ -123,7 +123,7 @@ vector<string> CommandManager::printOutputString(vector<int> sch_list)
                     Type type = static_cast<Type>(i);
 
                     output += getEmployeeInfo(e, type);
-                    output += ",";
+                    if (i != EMPLOYEE_INFO_END) output += ",";
                 }
 
                 outputStrAll.push_back(output);
@@ -142,4 +142,4 @@ string CommandManager::getEmployeeInfo(Employee * e, Type type)
     int index = (int)type - (int)Type::EmployeeNum;
 
     return employeeInfo[index];
-}
+}}
