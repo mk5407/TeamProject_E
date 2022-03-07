@@ -74,30 +74,38 @@ vector<string> CommandManager::printOutputString(vector<int> sch_list)
     vector<string> outputStrAll;
     int sch_size = sch_list.size();
 
-    if (option1_ != "-p")
+    if (sch_size == 0)
     {
-        string size_str = ( sch_size > 0 ) ? to_string(sch_size) : "NONE";
-        outputStrAll.push_back(cmd_ + "," + size_str);
+        outputStrAll.push_back(cmd_ + "," + "NONE");
     }
     else
     {
-        for (int index = 0; index < sch_size; index++)
+        if (option1_ != "-p")
         {
-            Employee* e = db_.getData(sch_list[index]);
-
-            string output = cmd_ + ",";
-
-            for (int i = EMPLOYEE_INFO_START; i <= EMPLOYEE_INFO_END; i++)
+            string size_str = to_string(sch_size);
+            outputStrAll.push_back(cmd_ + "," + size_str);
+        }
+        else
+        {
+            for (int index = 0; index < sch_size; index++)
             {
-                Type type = static_cast<Type>(i);
+                Employee* e = db_.getData(sch_list[index]);
 
-                output += getEmployeeInfo(e, type);
-                output += ",";
+                string output = cmd_ + ",";
+
+                for (int i = EMPLOYEE_INFO_START; i <= EMPLOYEE_INFO_END; i++)
+                {
+                    Type type = static_cast<Type>(i);
+
+                    output += getEmployeeInfo(e, type);
+                    output += ",";
+                }
+
+                outputStrAll.push_back(output);
             }
-
-            outputStrAll.push_back(output);
         }
     }
+   
 
     return outputStrAll;
 }

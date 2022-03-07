@@ -3,7 +3,7 @@
 #include <vector>
 #include "MockDatabase.h"
 #include "../Visual_Project/Employee.h"
-#include "../Visual_Project/database.h"
+#include "../Visual_Project/Database.h"
 #include "../Visual_Project/Sch.cpp"
 
 #include "../Visual_Project/Del.cpp"

@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 
-#include "column.h"
-#include "database.h"
+#include "Column.cpp"
+#include "Database.h"
 
 using namespace std;
 
