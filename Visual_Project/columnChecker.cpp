@@ -27,11 +27,11 @@ bool ColumnChecker::columnCheck(vector<string> line) {
 
     if (line[0] == "MOD") {
         if (line[6] == "employeeNum") return IColumnEmployeeNum_->IsValidColumn(Employee(line[7], "", "", "", "", ""));
-        if (line[6] == "name") return IColumnEmployeeNum_->IsValidColumn(Employee("", line[7], "", "", "", ""));
-        if (line[6] == "cl") return IColumnEmployeeNum_->IsValidColumn(Employee("", "", line[7], "", "", ""));
-        if (line[6] == "phoneNum") return IColumnEmployeeNum_->IsValidColumn(Employee("", "", "", line[7], "", ""));
-        if (line[6] == "birthday") return IColumnEmployeeNum_->IsValidColumn(Employee("", "", "", "", line[7], ""));
-        if (line[6] == "certi") return IColumnEmployeeNum_->IsValidColumn(Employee("", "", "", "", "", line[7]));
+        if (line[6] == "name") return IColumnName_->IsValidColumn(Employee("", line[7], "", "", "", ""));
+        if (line[6] == "cl") return IColumnCL_->IsValidColumn(Employee("", "", line[7], "", "", ""));
+        if (line[6] == "phoneNum") return IColumnPhoneNum_->IsValidColumn(Employee("", "", "", line[7], "", ""));
+        if (line[6] == "birthday") return IColumnBirthday_->IsValidColumn(Employee("", "", "", "", line[7], ""));
+        if (line[6] == "certi") return IColumnCerti_->IsValidColumn(Employee("", "", "", "", "", line[7]));
     }
 
     return true;
