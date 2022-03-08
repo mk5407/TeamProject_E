@@ -139,14 +139,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Add.cpp" />
+    <ClCompile Include="ColumnChecker.cpp" />
+    <ClCompile Include="CommandManger.cpp" />
     <ClCompile Include="Del.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mod.cpp" />
     <ClCompile Include="Sch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Add.h" />
+    <ClInclude Include="Column.h" />
+    <ClInclude Include="ColumnChecker.h" />
+    <ClInclude Include="CommandManager.h" />
+    <ClInclude Include="Database.h" />
     <ClInclude Include="Del.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="InputParcer.h" />
+    <ClInclude Include="Mod.h" />
     <ClInclude Include="Operation.h" />
+    <ClInclude Include="OutputManager.h" />
     <ClInclude Include="Sch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
